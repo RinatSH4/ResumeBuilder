@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: Resume_Builder
+  datasource:
+    url: jdbc:postgresql://localhost:5432/resume_builder
+    username: postgres
+    password: 123
+
+
