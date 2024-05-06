@@ -15,6 +15,9 @@ public class Resume {
 
     private String title;
     private String content;
+
+    public void setUser(User user) {
+    }
     // Другие поля и методы доступа
 }
 
