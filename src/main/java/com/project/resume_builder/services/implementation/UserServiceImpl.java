@@ -13,6 +13,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
+    public User getUserById(Long userId) {
+        // Здесь реализуем логику
+        return userRepository.findById(userId).orElse(null);
+    }
+
+    @Override
     public User registerUser(User user) {
         // Здесь реализуем логику регистрации пользователя
         return userRepository.save(user);

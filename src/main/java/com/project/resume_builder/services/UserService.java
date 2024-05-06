@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 
 public interface UserService {
+    User getUserById(Long userId);
     User registerUser(User user);
     // Другие методы сервиса
 }
