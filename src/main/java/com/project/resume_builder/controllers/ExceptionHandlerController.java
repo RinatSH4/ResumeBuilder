@@ -1,5 +1,6 @@
 package com.project.resume_builder.controllers;
 
+import com.project.resume_builder.exeptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;

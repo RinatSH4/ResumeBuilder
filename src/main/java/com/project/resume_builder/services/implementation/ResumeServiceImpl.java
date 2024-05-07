@@ -1,5 +1,6 @@
 package com.project.resume_builder.services.implementation;
 
+import com.project.resume_builder.exeptions.ResourceNotFoundException;
 import com.project.resume_builder.models.Resume;
 import com.project.resume_builder.models.User;
 import com.project.resume_builder.repositories.ResumeRepository;
