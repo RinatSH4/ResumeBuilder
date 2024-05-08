@@ -2,9 +2,9 @@ package com.project.resume_builder.exeptions;
 
 import lombok.Data;
 
-@Data
-public class ResourceNotFoundException {
-    public Object getMessage() {
-        return null;
+public class ResourceNotFoundException extends RuntimeException {
+
+    public ResourceNotFoundException(String message) {
+        super(message);
     }
 }

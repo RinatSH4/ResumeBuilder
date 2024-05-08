@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-    
+
 
     @Override
     public void configureSteps(List<StepConfig> stepConfigs) {

@@ -12,15 +12,26 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public User getUserById(Long userId) {
-        // Здесь реализуем логику
         return userRepository.findById(userId).orElse(null);
     }
 
     @Override
     public User registerUser(User user) {
-        // Здесь реализуем логику регистрации пользователя
+        // Проверяем, существует ли пользователь с таким именем
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new RuntimeException("Username already exists");
+        }
+
+        // Шифруем пароль перед сохранением
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+        // Сохраняем пользователя
         return userRepository.save(user);
     }
 }
