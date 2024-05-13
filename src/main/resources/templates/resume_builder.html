@@ -2,9 +2,43 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
+<section id="resume-builder">
+    <!-- Форма для информации о пользователе -->
+    <div id="user-info" class="resume-step">
+        <h2>Step 1: Personal Information</h2>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+        <!-- Другие поля информации о пользователе -->
+    </div>
 
+    <!-- Форма для образования -->
+    <div id="education" class="resume-step">
+        <h2>Step 2: Education</h2>
+        <label for="degree">Degree:</label>
+        <input type="text" id="degree" name="degree" required>
+        <label for="university">University:</label>
+        <input type="text" id="university" name="university" required>
+        <!-- Другие поля образования -->
+    </div>
+
+    <!-- Форма для опыта работы -->
+    <div id="work-experience" class="resume-step">
+        <h2>Step 3: Work Experience</h2>
+        <label for="jobTitle">Job Title:</label>
+        <input type="text" id="jobTitle" name="jobTitle" required>
+        <label for="company">Company:</label>
+        <input type="text" id="company" name="company" required>
+        <!-- Другие поля опыта работы -->
+        <button id="saveBtn">Save Resume</button>
+    </div>
+</section>
+<script src="/scripts.js"></script>
 </body>
 </html>

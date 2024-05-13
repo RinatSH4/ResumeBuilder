@@ -2,9 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<header>
+    <h1>Resume Builder</h1>
+</header>
 
+<main>
+    <section id="registration">
+        <h2>Registration</h2>
+        <form action="/register" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Register</button>
+        </form>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2024 Resume Builder</p>
+</footer>
+
+<script src="scripts.js"></script>
 </body>
 </html>

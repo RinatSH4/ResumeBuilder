@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/resumes")
+@RequestMapping("/resume")
 public class ResumeController {
 
     @Autowired
@@ -18,6 +18,11 @@ public class ResumeController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/create")
+    public String showCreateResumePage() {
+        return "createResume"; // Имя HTML-шаблона без расширения
+    }
 
     @PostMapping("/create")
     public ResponseEntity<Resume> createResume(@RequestParam Long userId, @RequestBody Resume resume) {
