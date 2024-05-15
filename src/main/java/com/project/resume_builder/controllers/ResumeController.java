@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/resume")
+@RequestMapping("/api/resume")
 public class ResumeController {
 
     @Autowired
