@@ -1,9 +1,6 @@
 package com.project.resume_builder.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -15,6 +12,11 @@ public class Resume {
 
     private String title;
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     public void setUser(User user) {
     }

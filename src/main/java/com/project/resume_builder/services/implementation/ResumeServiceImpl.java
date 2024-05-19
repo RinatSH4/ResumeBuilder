@@ -8,6 +8,8 @@ import com.project.resume_builder.services.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ResumeServiceImpl implements ResumeService {
@@ -30,5 +32,10 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public void deleteResumeById(Long resumeId) {
         resumeRepository.deleteById(resumeId);
+    }
+
+    @Override
+    public List<Resume> getResumesByUser(User user) {
+        return resumeRepository.findByUser(user);
     }
 }
