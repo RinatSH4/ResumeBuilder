@@ -9,13 +9,83 @@
 <body>
 <h1>Create Your Resume</h1>
 <form id="resumeForm">
-  <!-- Форма для заполнения информации о резюме -->
+  <div>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+  </div>
+  <div>
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" required>
+  </div>
+  <div>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" required>
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+  <div>
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" name="phone" required>
+  </div>
+  <div>
+    <h2>Education</h2>
+    <div>
+      <label for="degree">Degree:</label>
+      <input type="text" id="degree" name="education[0].degree" required>
+    </div>
+    <div>
+      <label for="university">University:</label>
+      <input type="text" id="university" name="education[0].university" required>
+    </div>
+    <div>
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="education[0].startDate" required>
+    </div>
+    <div>
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="education[0].endDate" required>
+    </div>
+  </div>
+  <div>
+    <h2>Experience</h2>
+    <div>
+      <label for="jobTitle">Job Title:</label>
+      <input type="text" id="jobTitle" name="experience[0].jobTitle" required>
+    </div>
+    <div>
+      <label for="company">Company:</label>
+      <input type="text" id="company" name="experience[0].company" required>
+    </div>
+    <div>
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="experience[0].startDate" required>
+    </div>
+    <div>
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="experience[0].endDate" required>
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" name="experience[0].description" required></textarea>
+    </div>
+  </div>
+  <button type="submit" onclick="submitResume()">Submit</button>
 </form>
-<button id="submitBtn" onclick="submitResume()">Submit</button>
-
 <script>
   function submitResume() {
-    // Логика для отправки данных о резюме на сервер
+    const form = document.getElementById('resumeForm');
+    const formData = new FormData(form);
+    fetch('/api/resume/create', {
+      method: 'POST',
+      body: JSON.stringify(Object.fromEntries(formData)),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
   }
 </script>
 <script src="/scripts.js"></script>

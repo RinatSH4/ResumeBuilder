@@ -5,7 +5,6 @@ import com.project.resume_builder.models.Resume;
 import com.project.resume_builder.models.User;
 import com.project.resume_builder.services.ResumeService;
 import com.project.resume_builder.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/resume")
 public class ResumeController {
 
-    @Autowired
-    private ResumeService resumeService;
+    private final ResumeService resumeService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @GetMapping("/create")
-    public String showCreateResumePage() {
-        return "createResume"; // Имя HTML-шаблона без расширения
+    public ResumeController(ResumeService resumeService, UserService userService) {
+        this.resumeService = resumeService;
+        this.userService = userService;
     }
 
     @PostMapping("/create")
@@ -40,5 +37,10 @@ public class ResumeController {
     public ResponseEntity<?> deleteResumeById(@PathVariable Long resumeId) {
         resumeService.deleteResumeById(resumeId);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{resumeId}")
+    public ResponseEntity<Resume> updateResume(@PathVariable Long resumeId, @RequestBody Resume resume) {
+        return ResponseEntity.ok(resumeService.updateResume(resumeId, resume));
     }
 }

@@ -12,5 +12,6 @@ public interface ResumeService {
     Resume getResumeById(Long resumeId);
     void deleteResumeById(Long resumeId);
     List<Resume> getResumesByUser(User user);
+    Resume updateResume(Long resumeId, Resume updatedResume);
     // Другие методы сервиса
 }

@@ -5,7 +5,6 @@ import com.project.resume_builder.models.Resume;
 import com.project.resume_builder.models.User;
 import com.project.resume_builder.repositories.ResumeRepository;
 import com.project.resume_builder.services.ResumeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +13,11 @@ import java.util.List;
 @Service
 public class ResumeServiceImpl implements ResumeService {
 
-    @Autowired
-    private ResumeRepository resumeRepository;
+    private final ResumeRepository resumeRepository;
+
+    public ResumeServiceImpl(ResumeRepository resumeRepository) {
+        this.resumeRepository = resumeRepository;
+    }
 
     @Override
     public Resume createResume(User user, Resume resume) {
@@ -37,5 +39,19 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public List<Resume> getResumesByUser(User user) {
         return resumeRepository.findByUser(user);
+    }
+
+    @Override
+    public Resume updateResume(Long resumeId, Resume updatedResume) {
+        Resume existingResume = getResumeById(resumeId);
+        existingResume.setTitle(updatedResume.getTitle());
+        existingResume.setContent(updatedResume.getContent());
+        existingResume.setFirstName(updatedResume.getFirstName());
+        existingResume.setLastName(updatedResume.getLastName());
+        existingResume.setEmail(updatedResume.getEmail());
+        existingResume.setPhone(updatedResume.getPhone());
+        existingResume.setEducationList(updatedResume.getEducationList());
+        existingResume.setExperienceList(updatedResume.getExperienceList());
+        return resumeRepository.save(existingResume);
     }
 }
