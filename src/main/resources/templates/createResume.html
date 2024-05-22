@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Resume</title>
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" th:href="@{/static/styles.css}">
 </head>
 <body>
 <h1>Create Your Resume</h1>
-<form id="resumeForm">
+<form id="resumeForm" th:action="@{/api/resume/create}" method="post">
   <div>
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" required>
@@ -31,63 +31,70 @@
   </div>
   <div>
     <h2>Education</h2>
-    <div>
-      <label for="degree">Degree:</label>
-      <input type="text" id="degree" name="education[0].degree" required>
-    </div>
-    <div>
-      <label for="university">University:</label>
-      <input type="text" id="university" name="education[0].university" required>
-    </div>
-    <div>
-      <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate" name="education[0].startDate" required>
-    </div>
-    <div>
-      <label for="endDate">End Date:</label>
-      <input type="date" id="endDate" name="education[0].endDate" required>
+    <div th:each="education, educIndex : ${educations}">
+      <div>
+        <label th:for="'degree' + ${educIndex.index}">Degree:</label>
+        <label>
+          <input type="text" th:id="'degree' + ${educIndex.index}" th:name="'education[' + ${educIndex.index} + '].degree'" required>
+        </label>
+      </div>
+      <div>
+        <label th:for="'university' + ${educIndex.index}">University:</label>
+        <label>
+          <input type="text" th:id="'university' + ${educIndex.index}" th:name="'education[' + ${educIndex.index} + '].university'" required>
+        </label>
+      </div>
+      <div>
+        <label th:for="'startDateEducation' + ${educIndex.index}">Start Date:</label>
+        <label>
+          <input type="date" th:id="'startDateEducation' + ${educIndex.index}" th:name="'education[' + ${educIndex.index} + '].startDate'" required>
+        </label>
+      </div>
+      <div>
+        <label th:for="'endDateEducation' + ${educIndex.index}">End Date:</label>
+        <label>
+          <input type="date" th:id="'endDateEducation' + ${educIndex.index}" th:name="'education[' + ${educIndex.index} + '].endDate'" required>
+        </label>
+      </div>
     </div>
   </div>
   <div>
     <h2>Experience</h2>
-    <div>
-      <label for="jobTitle">Job Title:</label>
-      <input type="text" id="jobTitle" name="experience[0].jobTitle" required>
-    </div>
-    <div>
-      <label for="company">Company:</label>
-      <input type="text" id="company" name="experience[0].company" required>
-    </div>
-    <div>
-      <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate" name="experience[0].startDate" required>
-    </div>
-    <div>
-      <label for="endDate">End Date:</label>
-      <input type="date" id="endDate" name="experience[0].endDate" required>
-    </div>
-    <div>
-      <label for="description">Description:</label>
-      <textarea id="description" name="experience[0].description" required></textarea>
+    <div th:each="experience, expIndex : ${experiences}">
+      <div>
+        <label th:for="'jobTitle' + ${expIndex.index}">Job Title:</label>
+        <label>
+          <input type="text" th:id="'jobTitle' + ${expIndex.index}" th:name="'experience[' + ${expIndex.index} + '].jobTitle'" required>
+        </label>
+      </div>
+      <div>
+        <label th:for="'company' + ${expIndex.index}">Company:</label>
+        <label>
+          <input type="text" th:id="'company' + ${expIndex.index}" th:name="'experience[' + ${expIndex.index} + '].company'" required>
+        </label>
+      </div>
+      <div>
+        <label th:for="'startDateExperience' + ${expIndex.index}">Start Date:</label>
+        <label>
+          <input type="date" th:id="'startDateExperience' + ${expIndex.index}" th:name="'experience[' + ${expIndex.index} + '].startDate'" required>
+        </label>
+      </div>
+      <div>
+        <label th:for="'endDateExperience' + ${expIndex.index}">End Date:</label>
+        <label>
+          <input type="date" th:id="'endDateExperience' + ${expIndex.index}" th:name="'experience[' + ${expIndex.index} + '].endDate'" required>
+        </label>
+      </div>
+      <div>
+        <label th:for="'description' + ${expIndex.index}">Description:</label>
+        <label>
+          <textarea th:id="'description' + ${expIndex.index}" th:name="'experience[' + ${expIndex.index} + '].description'" required></textarea>
+        </label>
+      </div>
     </div>
   </div>
-  <button type="submit" onclick="submitResume()">Submit</button>
+  <button type="submit">Submit</button>
 </form>
-<script>
-  function submitResume() {
-    const form = document.getElementById('resumeForm');
-    const formData = new FormData(form);
-    fetch('/api/resume/create', {
-      method: 'POST',
-      body: JSON.stringify(Object.fromEntries(formData)),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
-  }
-</script>
-<script src="/scripts.js"></script>
+<script th:src="@{/scripts.js}"></script>
 </body>
 </html>
