@@ -93,8 +93,15 @@
       </div>
     </div>
   </div>
-  <button type="submit">Submit</button>
+  <div>
+    <label for="format">Choose Format:</label>
+    <select id="format" name="format">
+      <option value="pdf">PDF</option>
+      <!-- Дополнительные форматы -->
+    </select>
+  </div>
+  <button type="button" onclick="submitResume()">Submit</button>
 </form>
-<script th:src="@{/scripts.js}"></script>
+<script th:src="@{/static/scripts.js}"></script>
 </body>
 </html>

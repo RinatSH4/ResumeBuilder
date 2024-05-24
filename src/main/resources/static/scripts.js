@@ -17,3 +17,52 @@ function submitResume() {
             console.error('Error:', error);
         });
 }
+
+
+(function() {
+    async function submitResume() {
+        const form = document.getElementById('resumeForm');
+        const formData = new FormData(form);
+
+        // Сначала создаем резюме
+        const resumeResponse = await fetch('/api/resume/create', {
+            method: 'POST',
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!resumeResponse.ok) {
+            console.error('Error creating resume');
+            return;
+        }
+
+        const resumeData = await resumeResponse.json();
+        const resumeId = resumeData.id;
+
+        // Затем выбираем формат
+        const format = formData.get('format');
+        const formatResponse = await fetch('/api/resume/' + resumeId + '/format?format=' + format, {
+            method: 'POST'
+        });
+
+        if (formatResponse.ok) {
+            const blob = await formatResponse.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'resume.' + format;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        } else {
+            console.error('Error generating resume in selected format');
+        }
+    }
+
+    document.getElementById('resumeForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        submitResume();
+    });
+})();
