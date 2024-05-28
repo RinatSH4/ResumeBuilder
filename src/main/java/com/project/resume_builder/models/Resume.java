@@ -31,8 +31,8 @@ public class Resume {
     @Size(max = 50)
     private String lastName;
 
-    @Email
     @NotBlank
+    @Email
     private String email;
 
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Invalid phone number")

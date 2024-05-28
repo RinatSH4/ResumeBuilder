@@ -2,12 +2,15 @@ package com.project.resume_builder.models;
 
 
 import jakarta.persistence.*;
+
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -24,9 +27,17 @@ public class User {
     private String username;
 
     @NotBlank
-    @Size(min = 6)
+    @Size(min = 6, max = 50)
     @Column(name = "user_password", nullable = false)
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Resume> resumes;
