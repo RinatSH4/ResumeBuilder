@@ -1,6 +1,8 @@
 package com.project.resume_builder.controllers;
 
 
+import com.project.resume_builder.dto.UserRegistrationDTO;
+import com.project.resume_builder.exeptions.UserAlreadyExistsException;
 import com.project.resume_builder.models.User;
 import com.project.resume_builder.services.UserService;
 import jakarta.validation.Valid;
@@ -19,10 +21,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {
+    public ResponseEntity<User> registerUser(@Valid @RequestBody UserRegistrationDTO userDTO) {
         try {
-            User createdUser = userService.registerUser(user);
+            User newUser = new User();
+            newUser.setUsername(userDTO.getUsername());
+            newUser.setPassword(userDTO.getPassword());
+            User createdUser = userService.registerUser(newUser);
             return ResponseEntity.ok(createdUser);
+        } catch (UserAlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
