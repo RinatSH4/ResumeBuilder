@@ -5,6 +5,7 @@ import com.project.resume_builder.exeptions.UserAlreadyExistsException;
 import com.project.resume_builder.models.User;
 import com.project.resume_builder.repositories.UserRepository;
 import com.project.resume_builder.services.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @CacheEvict(value = "users", key = "#user.id")
+    @Transactional
     public User registerUser(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new UserAlreadyExistsException("Username already exists");
@@ -52,6 +54,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @CacheEvict(value = "users", key = "#userId")
+    @Transactional
     public void deleteUser(Long userId) {
         if (!userRepository.existsById(userId)) {
             throw new ResourceNotFoundException("User not found");
