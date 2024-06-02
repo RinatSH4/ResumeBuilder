@@ -5,8 +5,12 @@ import com.project.resume_builder.exeptions.UserAlreadyExistsException;
 import com.project.resume_builder.models.User;
 import com.project.resume_builder.repositories.UserRepository;
 import com.project.resume_builder.services.UserService;
+import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 
 @Service
@@ -22,12 +26,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(value = "users", key = "#userId")
     public User getUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
+    @CacheEvict(value = "users", key = "#user.id")
+    @Transactional
     public User registerUser(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new UserAlreadyExistsException("Username already exists");
@@ -39,12 +46,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(value = "users", key = "#username")
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
+    @CacheEvict(value = "users", key = "#userId")
+    @Transactional
     public void deleteUser(Long userId) {
         if (!userRepository.existsById(userId)) {
             throw new ResourceNotFoundException("User not found");
@@ -52,4 +62,3 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(userId);
     }
 }
-
