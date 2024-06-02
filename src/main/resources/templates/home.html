@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
-
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/register}">Register</a></li>
+            <li><a th:href="@{/login}">Login</a></li>
+            <li><a th:href="@{/createResume}">Create Resume</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1>Welcome to the Resume Builder</h1>
+    <p>Create your professional resume online step by step.</p>
+</main>
 </body>
 </html>
