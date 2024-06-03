@@ -33,6 +33,6 @@ public class AdminController {
         return ResponseEntity.ok().build();
     }
 
-    // Другие методы для настройки параметров резюме...
+
 }
 

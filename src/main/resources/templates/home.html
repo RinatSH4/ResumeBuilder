@@ -2,23 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <header>
-    <nav>
-        <ul>
-            <li><a th:href="@{/}">Home</a></li>
-            <li><a th:href="@{/register}">Register</a></li>
-            <li><a th:href="@{/login}">Login</a></li>
-            <li><a th:href="@{/createResume}">Create Resume</a></li>
-        </ul>
-    </nav>
+    <div style="text-align: right;">
+        <a th:href="@{/login}">Log in</a>
+    </div>
 </header>
 <main>
-    <h1>Welcome to the Resume Builder</h1>
-    <p>Create your professional resume online step by step.</p>
+    <h1>Welcome to Resume Builder</h1>
+    <p>This service allows you to create your resume online, step by step.</p>
+    <a th:href="@{/register}">Don't have an account yet?</a>
 </main>
 </body>
 </html>

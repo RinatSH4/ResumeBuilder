@@ -19,13 +19,13 @@ public class User {
     private Long id;
 
     @NotBlank
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     @Column(name = "user_name", unique = true, nullable = false)
     private String username;
 
     @JsonIgnore
     @NotBlank
-    @Size(min = 6, max = 50)
+    @Size(min = 6, max = 50, message = "Password must be between 6 and 50 characters")
     @Column(name = "user_password", nullable = false)
     private String password;
 
